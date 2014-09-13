@@ -4,10 +4,10 @@
 
 Ne pas oublier en ligne de commande:
 
-npm install -g grunt-cli (obligatoire)
-npm install (obligatoire)
-grunt serve (obligatoire) Accessible en localhost sur le port 8080 (localhost:8080)
-npm install -g cordova ionic (facultatif pour le dev)
+* npm install -g grunt-cli (obligatoire)
+* npm install (obligatoire)
+* grunt serve (obligatoire) Accessible en localhost sur le port 8080 (localhost:8080)
+* npm install -g cordova ionic (facultatif pour le dev)
 
 ## Rappels de base
 

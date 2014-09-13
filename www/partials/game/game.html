@@ -1,6 +1,6 @@
 <ion-content has-header="true">
     <div ng-show="auth.user">
-      <p>Hello, {{auth.user.displayName}}</p>
+      <p>Hello test,  {{auth.user.displayName}}</p>
       <button class="button" ng-click="logout(auth.user.uid)">Logout</button>
     </div>
     <div ng-hide="auth.user">
@@ -15,7 +15,14 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
+<<<<<<< HEAD
     <map zoom="11" center="[40.74, -74.18]" map-type-id="MapTypeId.SATELLITE">
         <marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
     </map>
+=======
+    <google-map center="map.center" zoom="map.zoom">
+     <polylines models="polylines" path="'path'" stroke="'stroke'" visible="'visible'"
+                  geodesic="'geodesic'" fit="false" editable="'p.editable'" draggable="'draggable'" icons="'icons'"></polylines>
+                  </google-map>
+>>>>>>> cc66b223cae94c2eeac4da1ec3fb193465f27ae2
 </ion-content>

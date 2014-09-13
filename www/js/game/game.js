@@ -24,7 +24,7 @@ app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile",
       console.error("Login failed: " + error);
     });
   }
-  $scope.logout = function(userID){   
+  $scope.logout = function(userID){
     $scope.auth.$logout();
     console.log("Logged Out");
     $scope.prof.$destroy();

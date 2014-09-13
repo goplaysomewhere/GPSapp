@@ -15,5 +15,7 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
-    <google-map center="map.center" zoom="map.zoom"></google-map>
+    <map zoom="11" center="[40.74, -74.18]" map-type-id="MapTypeId.SATELLITE">
+        <marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
+    </map>
 </ion-content>

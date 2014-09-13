@@ -121,10 +121,11 @@ module.exports = function (grunt) {
       },
       js: {
         files: [
-          './www/js/*.js'
+          './www/js/*.js',
+           './www/js/**/*.js'
         ]
       }
-    },
+    }
 
   });
 

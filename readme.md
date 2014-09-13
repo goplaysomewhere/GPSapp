@@ -1,5 +1,14 @@
 # GIT
 
+## Dépendances
+
+Ne pas oublier en ligne de commande:
+
+* npm install -g grunt-cli (obligatoire)
+* npm install (obligatoire)
+* grunt serve (obligatoire) Accessible en localhost sur le port 8080 (localhost:8080)
+* npm install -g cordova ionic (facultatif pour le dev)
+
 ## Rappels de base
 
 * Chacun fork le projet et travail sur son fork. Si git clone du projet de Jeff, il faut modifier le git config pour pusher sur votre github.

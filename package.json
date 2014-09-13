@@ -1,0 +1,24 @@
+{
+  "name": "GoPlaySomewhere",
+  "version": "1.0.0",
+  "description": "Go Play Somewhere: Geo-Localized Game Studio",
+  "dependencies": {
+    "gulp": "^3.5.6",
+    "gulp-sass": "^0.7.1",
+    "gulp-concat": "^2.2.0",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-rename": "^1.2.0"
+  },
+  "devDependencies": {
+    "bower": "^1.3.3",
+    "gulp-util": "^2.2.14",
+    "shelljs": "^0.3.0",
+    "grunt": "~0.4.2",
+    "grunt-debug": "~0.0.3",
+    "grunt-contrib-watch": "~0.4.4",
+    "grunt-contrib-compass": "0.7.2",
+    "grunt-browser-sync": "~0.4.1",
+    "grunt-http-server" : "~0.0.5",
+    "load-grunt-tasks": "~0.2.0"
+  }
+}

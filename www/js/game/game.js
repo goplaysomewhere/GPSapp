@@ -9,7 +9,12 @@ app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile",
       },
       zoom: 8
   };
-  
+/*
+   $scope.$apply(function(){
+    // todo
+    });*/
+
+
   $scope.login = function(provider) {
      $scope.auth.$login(provider).then(function(user) {
       console.log("Logged in as: " + user.uid);
@@ -19,7 +24,7 @@ app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile",
       console.error("Login failed: " + error);
     });
   }
-  $scope.logout = function(userID){
+  $scope.logout = function(userID){   
     $scope.auth.$logout();
     console.log("Logged Out");
     $scope.prof.$destroy();

@@ -1,0 +1,19 @@
+<ion-content has-header="true">
+    <div ng-show="auth.user">
+      <p>Hello, {{auth.user.displayName}}</p>
+      <button class="button" ng-click="logout(auth.user.uid)">Logout</button>
+    </div>
+    <div ng-hide="auth.user">
+      <p>Welcome, please log in.</p>
+      <button class="button button-positive icon-left ion-social-facebook" ng-click="login('facebook')">Login with Facebook</button>
+      <button class="button button-positive icon-left ion-social-twitter" ng-click="login('twitter')">Login with Twitter</button>
+      <button class="button button-positive icon-left ion-social-google" ng-click="login('google')">Login with Google</button>
+    </div>
+    <div ng-show="auth.user">
+        <label class="item item-input">
+          <span class="input-label">nickname</span>
+          <input type="text" ng-model="profile.nickname">
+        </label>
+    </div>        
+    <google-map center="map.center" zoom="map.zoom"></google-map>    
+</ion-content>

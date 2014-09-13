@@ -1,5 +1,5 @@
-app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile","Engine", "MapsRequest" ,
-  function($scope, simpleLogin, Profile,Engine, MapsRequest) {
+app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest" ,
+  function($scope, $interval, simpleLogin, Profile,Engine, MapsRequest) {
   $scope.auth = simpleLogin;
 
   $scope.map = {
@@ -7,34 +7,35 @@ app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile","Engine", "MapsRe
           latitude: 47.212210, 
           longitude: -1.551944
       },
-      zoom: 17
+      zoom: 17, 
+      polylines : []
   };
 
   $scope.polylines = [];
+  $scope.marker = {
+    id:0,
+    coords:{
+      latitude: 47.212210, 
+      longitude: -1.551944
+    }
+  };
 
-  $scope.callBackDirection = function(response){
+  $scope.callBackDirection = function(polylines){
     $scope.$apply(function(){
+      
+      $scope.map.polylines = polylines;
+        
+      /*var coords = MapsRequest.getCoords();
+      var index = 0;
 
-      var legs = response.routes[0].legs;
-      var ids = 0;
-      for (i=0;i<legs.length;i++) {
-        var steps = legs[i].steps;
-        for (j=0;j<steps.length;j++) {
-          var nextSegment = steps[j].path;
-          var polylineTmp =  {
-            id : ids,
-            path :  []
-          };
-          for (k=0;k<nextSegment.length;k++) {
-            polylineTmp.path.push({
-              latitude : nextSegment[k].k, 
-              longitude : nextSegment[k].B
-            });
-          }
-          $scope.polylines.push(polylineTmp);
-          ids++;
+      var intervalCancel = $interval(function(){
+        if (index >= coords.length){
+          $interval.cancel(intervalCancel);
+        }else{
+          $scope.marker.coords = coords[index];
         }
-      }
+        index++;
+      },100);*/
       
     });
   }

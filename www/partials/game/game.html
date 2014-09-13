@@ -15,8 +15,11 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
-    <google-map center="map.center" zoom="map.zoom">
+    <map center="map.center" zoom="map.zoom" polylines="map.polylines"></map>
+    <!--<google-map center="map.center" zoom="map.zoom">
      <polylines models="polylines" path="'path'" stroke="'stroke'" visible="'visible'"
                   geodesic="'geodesic'" fit="false" editable="'p.editable'" draggable="'draggable'" icons="'icons'"></polylines>
-                  </google-map>
+      <marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" >
+        </marker>
+    </google-map>-->
 </ion-content>

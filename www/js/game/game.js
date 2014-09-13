@@ -1,18 +1,46 @@
-app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile", 
-  function($scope, simpleLogin, Profile) {
+app.controller("gameCtrl", ["$scope", "simpleLogin", "Profile","Engine", "MapsRequest" ,
+  function($scope, simpleLogin, Profile,Engine, MapsRequest) {
   $scope.auth = simpleLogin;
 
   $scope.map = {
       center: {
-          latitude: 45,
-          longitude: -73
+          latitude: 47.212210, 
+          longitude: -1.551944
       },
-      zoom: 8
+      zoom: 17
   };
-/*
-   $scope.$apply(function(){
-    // todo
-    });*/
+
+  $scope.polylines = [];
+
+  $scope.callBackDirection = function(response){
+    $scope.$apply(function(){
+
+      var legs = response.routes[0].legs;
+      var ids = 0;
+      for (i=0;i<legs.length;i++) {
+        var steps = legs[i].steps;
+        for (j=0;j<steps.length;j++) {
+          var nextSegment = steps[j].path;
+          var polylineTmp =  {
+            id : ids,
+            path :  []
+          };
+          for (k=0;k<nextSegment.length;k++) {
+            polylineTmp.path.push({
+              latitude : nextSegment[k].k, 
+              longitude : nextSegment[k].B
+            });
+          }
+          $scope.polylines.push(polylineTmp);
+          ids++;
+        }
+      }
+      
+    });
+  }
+
+  MapsRequest.callDirections("impasse Juton, nantes","CHU Nantes", $scope.callBackDirection);
+
 
 
   $scope.login = function(provider) {

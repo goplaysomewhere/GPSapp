@@ -116,7 +116,7 @@ module.exports = function (grunt) {
         files: [
           '*.html',
           './www/*.html',
-          './www/partials/*.html'
+          './www/**/*.html'
         ]
       },
       js: {

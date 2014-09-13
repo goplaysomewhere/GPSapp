@@ -11,7 +11,7 @@ npm install -g cordova ionic (facultatif pour le dev)
 
 ## Rappels de base
 
-* Chacun fork le projet. Si git clone du projet de Jeff, il faut modifier le git config pour pusher sur votre github
+* Chacun fork le projet et travail sur son fork. Si git clone du projet de Jeff, il faut modifier le git config pour pusher sur votre github.
 * Une branche par fonctionnalité. Vous ne travaillez jamais sur la branche master.
 * La branche doit être nommée explicitement avec le nom de la fonctionnalité(ex: "element-anime-map")
 * Vous pushez la branch sur le dépôt github lorsque la fonctionnalité est prête et vous faites un pull request.

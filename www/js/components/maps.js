@@ -17,6 +17,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
         //useGoogleMaps = false;
         var mapDivElt = iElement.find('div')[0];
         var markers = [];
+        var polylinesMaps = [];
       
         var map = null;        
         var geocoder = null;
@@ -36,6 +37,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
             if (map == null || !newValue){
                 return;
             }
+            polylinesMaps = [];
             for (var indexPolyline = 0 ; indexPolyline<newValue.length; indexPolyline++){
                 var polyline = new google.maps.Polyline({
                   path: [],
@@ -49,31 +51,35 @@ components.directive('map', ['$rootScope', '$timeout','$location'
                 }
 
                 polyline.setMap(map);
+                polylinesMaps.push(polyline);
             }
 
 
         },true);
 
-       /* $scope.$watch('base', function (newValue) {
-            if (map == null || !newValue){
-                return;
+        $rootScope.$on('setPolylineActiv', function(evt, index){            
+            if (index < polylinesMaps.length){
+                polylinesMaps[index].setOptions({strokeColor:'#00FF00'});
             }
-            placeGoogleMapsMarker(parseFloat(newValue.latitude), parseFloat(newValue.longitude),'base');                           
-            
         });
-
-        $scope.$watch('basesEnemies', function (newValue) {
-            if (map == null || !newValue){
-                return;
-            }
-            for (var i =0; i < newValue.length; i++){      
-                placeGoogleMapsMarker(parseFloat(newValue[i].latitude), parseFloat(newValue[i].longitude));               
-            }
-            
-        }, true);*/
+      
 
         $rootScope.$on('requestNewMarker', function(evt, objMarker){            
             markers[objMarker.id] = placeGoogleMapsMarker(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude), objMarker.type);
+            if (objMarker.type ===  'tourette'){
+                var populationOptions = {
+                  strokeColor: '#FF0000',
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: '#FF0000',
+                  fillOpacity: 0.35,
+                  map: map,
+                  center: new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)),
+                  radius: 50
+                };
+                // Add the circle for this city to the map.
+                cityCircle = new google.maps.Circle(populationOptions);
+            }
         });
 
         $rootScope.$on('moveMarker', function(evt, objMarker){            
@@ -148,7 +154,9 @@ components.directive('map', ['$rootScope', '$timeout','$location'
 
         function placeGoogleMapsMarker(lat, lng, type){
             var icon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-            if (type === 'attaquant'){
+            if (type === 'pingouin'){
+                icon = "../img/ping-User.png";
+            }else if (type === 'attaquant'){
                 icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
             }else if (type === 'tourette'){
                 icon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";

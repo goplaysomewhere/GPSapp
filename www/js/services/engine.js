@@ -28,9 +28,11 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 
 	function setCoords(coordsModel){
 		coords.push(coordsModel);
+		checkStateRoutes();
 	}
 
 	function startAttact(){
+		checkStateRoutes();
 		throwAttact(NB_ATTAQUANTS);
 		processMove();
 		NB_ATTAQUANTS++;
@@ -56,6 +58,23 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 			}
 			lock = false;
 		}
+	}
+
+	function checkStateRoutes(){
+		if(level <5){
+			$rootScope.$emit('setPolylineActiv',0);
+		}else if(level <8){
+			$rootScope.$emit('setPolylineActiv',0);
+			$rootScope.$emit('setPolylineActiv',1);
+			}else{
+			$rootScope.$emit('setPolylineActiv',0);
+			$rootScope.$emit('setPolylineActiv',1);
+			$rootScope.$emit('setPolylineActiv',2);
+		}
+	}
+
+	function getLevel(){
+		return level;
 	}
 
 	function getNbPath(){
@@ -165,6 +184,8 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 		reset : reset,
 		startAttact : startAttact,
 		setCoords : setCoords,
-		addTourette : addTourette
+		addTourette : addTourette,
+		getLevel : getLevel
+
 	};
 }]);

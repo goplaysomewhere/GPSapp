@@ -4,6 +4,7 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
     var latitude = 0;
     var longitude = 0;
     var steps = 0;
+    var pingouinMarker = null;
     var lastPos;
     function construct(latitude, longitude) {
         latitude = 48.212210;
@@ -27,8 +28,17 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
                 latitude: latitude,
                 longitude: longitude
             };
-             if (lastPos)
+            if (lastPos){
                 steps += getDistance(lastPos,position)*(1.31233595801 / 2);
+            }
+            if (!pingouinMarker){
+                pingouinMarker = {id : "pingouin"+new Date().getTime(), index:0, coord : {latitude : latitude, longitude : longitude}, type: "pingouin"};
+                $rootScope.$emit('requestNewMarker', pingouinMarker);
+            }else{
+                pingouinMarker.coord = {latitude : latitude, longitude : longitude};
+                $rootScope.$emit('moveMarker', pingouinMarker);
+
+            }
             lastPos = position;
             if (steps){
                 $rootScope.$emit('updateStep');
@@ -39,7 +49,7 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
         function onError(error) {
             console.log('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
         }
-        navigator.geolocation.watchPosition(onSuccess, onError, {timeout:1000});
+        navigator.geolocation.watchPosition(onSuccess, onError, {timeout:1000, enableHighAccuracy:true});
         return map;
     }
 

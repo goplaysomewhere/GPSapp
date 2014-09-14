@@ -193,15 +193,15 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         }
 
         function placeGoogleMapsMarker(lat, lng, type){
-            var icon = "../../img/clown-Home.png";
+            var icon = "img/clown-Home.png";
             if (type === 'pingouin'){
-                icon = "../../img/ping-User.png";
+                icon = "img/ping-User.png";
             }else if (type === 'attaquant'){
-                icon = "../../img/clown-Enemy.png";
+                icon = "img/clown-Enemy.png";
             }else if (type === 'tourette'){
-                icon = "../../img/ping-Tour01.png";
+                icon = "img/ping-Tour01.png";
             }else if (type === 'base'){
-                icon = "../../img/ping-Home.png";
+                icon = "img/ping-Home.png";
             }
             var marker = new google.maps.Marker({
                 map : map,

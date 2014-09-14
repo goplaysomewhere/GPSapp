@@ -5,24 +5,24 @@
                 <li>
                     <div class="vie-parent">
                       <p class="vie">{{life}}</p>
-                      <img src="../../img/option-Vie_2.png" >                      
+                      <img src="img/option-Vie_2.png" >                      
                     </div>
                 </li>
                 <li>
                     <div ng-click="createMyBase()" >
-                        <img ng-if="!inGame" src="../../img/option-Base.png" >
-                        <img ng-if="inGame" src="../../img/option-Base-disabled.png" >
+                        <img ng-if="!inGame" src="img/option-Base.png" >
+                        <img ng-if="inGame" src="img/option-Base-disabled.png" >
                     </div>
                 </li>
                 <li>
                     <div ng-click="poseTourette()" >
-                        <img src="../../img/option-Tour.png" >
+                        <img src="img/option-Tour.png" >
                     </div>
                 </li>
                 <li>
                     <div ng-click="attaque()" >
-                        <img ng-if="!inAttaque" src="../../img/play.png" >
-                        <img ng-if="inAttaque" src="../../img/play-disabled.png" >
+                        <img ng-if="!inAttaque" src="img/play.png" >
+                        <img ng-if="inAttaque" src="img/play-disabled.png" >
                     </div>
                 </li>       
                  <li>
@@ -35,7 +35,7 @@
         <div id="over-map-score" ng-show="gameStart">
             <div id="over-map-score-content">
                 <div class="score-img">
-                    <img src="../../img/option-Menu.png" >
+                    <img src="img/option-Menu.png" >
                 </div>
                 <div class="score-value">
                     Score : {{ score }}
@@ -49,7 +49,7 @@
     </div>
     <div class="nice-body" ng-show="gameOver">
         <div id="new-game-placeholder" class="logo-placeholder">
-          <img src="../../img/game-over.png" alt=""/>
+          <img src="img/game-over.png" alt=""/>
         </div>
       <ul id="reset-game">
         <li><button class="button button-positive" ng-click="recommencer()">Recommencer</button></li>
@@ -58,7 +58,7 @@
     </div>
     <div class="nice-body" ng-show="auth.user && !gameStart && !gameOver">
         <div id="new-game-placeholder" class="logo-placeholder">
-          <img src="../../img/logo2.svg" alt=""/>
+          <img src="img/logo2.svg" alt=""/>
         </div>
       <ul id="new-game">
         <li><button class="button button-positive" ng-click='demarrerJeux()'>Nouvelle partie</button></li>
@@ -70,7 +70,7 @@
     </div>
     <div class="nice-body" ng-hide="auth.user">
       <div class="logo-placeholder">
-        <img id="logo" src="../../img/logo.svg" alt="logo"/>
+        <img id="logo" src="img/logo.svg" alt="logo"/>
       </div>
       <ul id="social-network">
         <li><button id="google-network" class="button button-positive icon-left ion-social-google" ng-click="login('google')">Connexion avec <span class="bold-network"> Google</span></button></li>
@@ -81,6 +81,6 @@
     </div>
     
 	<div id="auth-footer">
-		<img src="../../img/logo-footer.svg" alt=""/>
+		<img src="img/logo-footer.svg" alt=""/>
 	</div>
 </ion-content>

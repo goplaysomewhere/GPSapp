@@ -59,6 +59,9 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 				setTimeout(function() {
 			 		throwAttact(nbAttaques-1);		 	
 			 	}, TIME_ATTAQUE);	
+			}else{
+				$rootScope.$emit('endAttaque');
+
 			}
 			lock = false;
 		}

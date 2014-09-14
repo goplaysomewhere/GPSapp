@@ -10,7 +10,8 @@
                 </li>
                 <li>
                     <div ng-click="createMyBase()" >
-                        <img src="../../img/option-Base.png" >
+                        <img ng-if="!inGame" src="../../img/option-Base.png" >
+                        <img ng-if="inGame" src="../../img/option-Base-disabled.png" >
                     </div>
                 </li>
                 <li>
@@ -20,10 +21,21 @@
                 </li>
                 <li>
                     <div ng-click="attaque()" >
-                        <img src="../../img/option-Achat.png" >
+                        <img ng-if="!inAttaque" src="../../img/play.png" >
+                        <img ng-if="inAttaque" src="../../img/play-disabled.png" >
                     </div>
                 </li>                
             </ul>
+        </div>
+        <div id="over-map-score" ng-show="gameStart">
+            <div id="over-map-score-content">
+                <div class="score-img">
+                    <img src="../../img/option-Menu.png" >
+                </div>
+                <div class="score-value">
+                    Score : {{ score }}
+                </div>
+            </div>
         </div>
 
         <div id="google-map">

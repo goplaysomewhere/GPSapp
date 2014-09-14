@@ -13,6 +13,8 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   $scope.score = Stats.getScore();
   $scope.bank = Stats.getBank();
   $scope.life= Engine.getLife();
+  $scope.inGame = false;
+  $scope.inAttaque = true;
   Stats.setScore(0);
   Stats.setBank(100);
 
@@ -25,6 +27,8 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
 
   $rootScope.$on('gameOver',function(){
     $scope.$apply(function(){
+      $scope.inGame = false;
+      $scope.inAttaque = true;
       $scope.gameStart = false;
       $scope.gameOver = true;
     });
@@ -37,11 +41,19 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
     Stats.changeScore(1);
   });
 
+  $rootScope.$on('endAttaque',function(){
+    $scope.$apply(function(){
+      $scope.inAttaque = false;
+    });
+  });
+
   $scope.recommencer = function(){
     $scope.gameOver = false;
   }
 
   $scope.createMyBase = function() {
+      $scope.inAttaque = false;
+      $scope.inGame = true;
       var coordinates = MapService.getCurrentPosition();
       $scope.base = coordinates;
       var northCoordinates = MapService.getDepartNorthPosition();
@@ -103,6 +115,9 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   }
 
   $scope.attaque = function(){
+    if ($scope.inAttaque)
+      return;
+    $scope.inAttaque = true;
     Engine.startAttact();
   }
 
@@ -116,6 +131,8 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   }
 
   $scope.demarrerJeux = function(){
+    if ($scope.inGame)
+      return;
     Engine.reset();
     $rootScope.$emit('clearMap');
     $scope.gameStart = true;

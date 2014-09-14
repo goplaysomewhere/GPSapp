@@ -1,4 +1,4 @@
-app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) {
+app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$rootScope) {
 
 	var attaquants = [];
 	var tourettes = [];
@@ -49,7 +49,7 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 			lock = true;
 			if (nbAttaques > 0){
 				var pathIndex = Math.floor(Math.random() * getNbPath());
-				var attaquant = {id : new Date().getTime(), index:0, pathIndex : pathIndex, coord : coords[pathIndex][0], type: "attaquant", percent :getPercentAttaquant()};
+				var attaquant = {id : new Date().getTime(), index:0, pathIndex : pathIndex, coord : coords[pathIndex][0], type: "attaquant", percent :getPercentAttaquant(), startPercent: getPercentAttaquant()};
 				attaquants.push(attaquant);
 				$rootScope.$emit('requestNewMarker', attaquant);
 				setTimeout(function() {
@@ -141,6 +141,8 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 				for (var index =0; index < indexsToRemove.length; index++){
 					try{
 						var attaquant = attaquants.splice(indexsToRemove[index],1)[0];
+						Stats.changeScore(attaquant.startPercent);
+						Stats.changeBank(attaquant.startPercent/100);
 						$rootScope.$emit('removeMarker', attaquant);
 					}catch(e){
 						console.error(e);

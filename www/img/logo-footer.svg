@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="307.225px" height="51.443px" viewBox="0 0 307.225 51.443" enable-background="new 0 0 307.225 51.443"
+	 xml:space="preserve">
+<g>
+	<text transform="matrix(1 0 0 1 0 31.5742)" fill="#3D4652" font-family="'Aleo-Light'" font-size="24.0643">by</text>
+	<g>
+		<g>
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="45.835" y1="25.7217" x2="89.7402" y2="25.7217">
+				<stop  offset="0" style="stop-color:#FF007C"/>
+				<stop  offset="1" style="stop-color:#FF9A00"/>
+			</linearGradient>
+			<path fill="url(#SVGID_1_)" d="M50.041,2.289c-3.225,3.226-4.328,13.388-4.195,23.433c-0.133,10.045,0.971,20.207,4.195,23.433
+				c7.012,7.011,39.699-17.481,39.699-23.433S57.053-4.722,50.041,2.289z"/>
+			<g>
+				<defs>
+					<path id="SVGID_2_" d="M53.494,51.443c-1.881,0-3.357-0.524-4.39-1.554c-4.293-4.293-4.577-18.34-4.501-24.183
+						c-0.076-5.813,0.208-19.86,4.501-24.153C50.137,0.524,51.613,0,53.494,0c10.994,0,37.082,19.437,37.082,25.722
+						c0,3.525-7.734,10.359-14.355,15.141C72.781,43.343,60.979,51.443,53.494,51.443L53.494,51.443z"/>
+				</defs>
+				<clipPath id="SVGID_3_">
+					<use xlink:href="#SVGID_2_"  overflow="visible"/>
+				</clipPath>
+				<g clip-path="url(#SVGID_3_)">
+					<path fill="none" stroke="#FFFFFF" stroke-width="1.4525" stroke-miterlimit="10" d="M50.948-9.137
+						c0,0,16.373,37.165,69.72,69.72"/>
+					<path fill="none" stroke="#FFFFFF" stroke-width="1.4525" stroke-miterlimit="10" d="M120.668-9.137
+						c-24.117-1.339-69.72,69.72-69.72,69.72"/>
+				</g>
+				<g clip-path="url(#SVGID_3_)">
+					
+						<line fill="none" stroke="#FFFFFF" stroke-width="1.0894" stroke-miterlimit="10" x1="20.789" y1="-12.862" x2="90.508" y2="56.857"/>
+					
+						<line fill="none" stroke="#FFFFFF" stroke-width="1.0894" stroke-miterlimit="10" x1="90.508" y1="-12.862" x2="20.789" y2="56.857"/>
+				</g>
+			</g>
+		</g>
+		<text transform="matrix(1 0 0 1 105.8726 29.5698)" fill="#3D4652" font-family="'Aleo-Bold'" font-size="21.9784">Go Play Somewhere</text>
+		
+			<ellipse fill="#FFFFFF" stroke="#FFFFFF" stroke-width="1.8315" stroke-miterlimit="10" cx="58.14" cy="25.722" rx="5.546" ry="7.887"/>
+	</g>
+</g>
+</svg>

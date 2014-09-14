@@ -20,7 +20,7 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
             },
             zoom: 17, 
             polylines : []
-        };
+            };
         var onSuccess = function(position) {
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;

@@ -5,14 +5,18 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
 
 
   $scope.map = MapService.init();
-
-
-
+  $scope.steps = null;
   $scope.base = null;
   $scope.baseEnemies = [];
   $scope.polylines = [];
 
   $scope.tourettes = [];
+
+  $rootScope.$on('updateStep',function(){
+    $scope.$apply(function(){
+      $scope.steps = Math.round(MapService.getSteps());
+    });
+  });
 
   $scope.createMyBase = function() {
       coordinates = MapService.getCurrentPosition();

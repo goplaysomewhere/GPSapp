@@ -15,14 +15,11 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
-<<<<<<< HEAD
-    <map zoom="11" center="[40.74, -74.18]" map-type-id="MapTypeId.SATELLITE">
-        <marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
-    </map>
-=======
-    <google-map center="map.center" zoom="map.zoom">
+    <map center="map.center" zoom="map.zoom" polylines="map.polylines" attaquants="makersAttaquants" coords="coords" base="base" bases-enemies="basesEnemies"></map>
+    <!--<google-map center="map.center" zoom="map.zoom">
      <polylines models="polylines" path="'path'" stroke="'stroke'" visible="'visible'"
                   geodesic="'geodesic'" fit="false" editable="'p.editable'" draggable="'draggable'" icons="'icons'"></polylines>
-                  </google-map>
->>>>>>> cc66b223cae94c2eeac4da1ec3fb193465f27ae2
+      <marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" >
+        </marker>
+    </google-map>-->
 </ion-content>

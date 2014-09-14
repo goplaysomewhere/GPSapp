@@ -157,11 +157,11 @@ components.directive('map', ['$rootScope', '$timeout','$location'
             if (type === 'pingouin'){
                 icon = "../img/ping-User.png";
             }else if (type === 'attaquant'){
-                icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+                icon = "../../img/clown-Enemy.png";
             }else if (type === 'tourette'){
-                icon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+                icon = "../../img/ping-Tour01.png";
             }else if (type === 'base'){
-                icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+                icon = "../../img/ping-Home.png";
             }
             var marker = new google.maps.Marker({
                 map : map,

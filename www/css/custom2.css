@@ -52,7 +52,7 @@ body {
 }
 
 #new-game li:first-child button:before {
-	content: url('../../img/NewGameIcons.png');
+	content: url('../img/NewGameIcons.png');
 	width: 20%;
 	position: relative;
 	top: 4px;
@@ -60,14 +60,14 @@ body {
 }
 
 #new-game li:nth-child(2) button:before {
-	content: url('../../img/DashBoardIcon.png');
+	content: url('../img/DashBoardIcon.png');
 	width: 20%;
 	position: relative;
 	right: 32px;
 }
 
 #new-game li:nth-child(3) button:before {
-	content: url('../../img/ParamsIcons.png');
+	content: url('../img/ParamsIcons.png');
 	width: 20%;
 	position: relative;
 	top: 3px;

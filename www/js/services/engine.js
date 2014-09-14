@@ -27,7 +27,7 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 		TIME_ATTAQUE = 1000;
 		speedAttaque = 50;
 		level = 1;
-		$rootScope.$emit('updateLife', totalLife);
+		$rootScope.$emit('updateLife', {life : totalLife, apply : false});
 	}
 
 	function setCoords(coordsModel){
@@ -59,9 +59,6 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 				setTimeout(function() {
 			 		throwAttact(nbAttaques-1);		 	
 			 	}, TIME_ATTAQUE);	
-			}else{
-				$rootScope.$emit('endAttaque');
-
 			}
 			lock = false;
 		}
@@ -142,7 +139,7 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 					console.log('Attaque : '+totalLife);
 					indexsToRemove.push(i);
 					totalLife -= getAttaqueLevel(attaquant);
-					$rootScope.$emit('updateLife', totalLife);
+					$rootScope.$emit('updateLife', {life : totalLife, apply : true});
 					if (totalLife <=0){
 						$rootScope.$emit('gameOver');
 					}
@@ -163,6 +160,8 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 			}
 			if (attaquants.length>0){
 				setTimeout(processMove, speedAttaque);
+			}else{
+				$rootScope.$emit('endAttaque');
 			}
 			lock = false;
 		}

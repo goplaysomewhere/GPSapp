@@ -27,12 +27,14 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         
 
         function clearMap(){
+            console.log('Clear Map ');
             for (var i=0;i < markers.length; i++){
                 var marker = markers[i];
                 if(marker){
                     try{
                         marker.setMap(null);
                     }catch(e){
+                        console.log(e);
                     }
                 }
             }
@@ -44,6 +46,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                     try{
                         polyline.setMap(null);
                     }catch(e){
+                        console.log(e);
                     }
                 }
             }
@@ -56,6 +59,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                     try{
                         circle.setMap(null);
                     }catch(e){
+                        console.log(e);
                     }
                 }
             }

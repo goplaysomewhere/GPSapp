@@ -11,6 +11,10 @@ app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Eng
       polylines : []
   };
 
+  $scope.coords = [];
+  $scope.makersAttaquants=[];
+  $scope.base = null;
+  $scope.baseEnemies = [];
   $scope.polylines = [];
   $scope.marker = {
     id:0,
@@ -20,10 +24,19 @@ app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Eng
     }
   };
 
-  $scope.callBackDirection = function(polylines){
+  setTimeout(function() {
+    $scope.$apply(function(){
+      $scope.base = {latitude: 47.212210, 
+          longitude: -1.551944};
+    });
+  }, 1000);
+
+  $scope.callBackDirection = function(polylines, coords){
     $scope.$apply(function(){
       
       $scope.map.polylines = polylines;
+      $scope.coords = coords;
+      $scope.makersAttaquants = [coords[0]];
         
       /*var coords = MapsRequest.getCoords();
       var index = 0;

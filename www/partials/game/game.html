@@ -1,38 +1,40 @@
 <ion-content has-header="true">
-    <div ng-show="auth.user">
-      <p>Hello test,  {{auth.user.displayName}}</p>
-      <button class="button" ng-click="logout(auth.user.uid)">Logout</button>
+	    <div class="nice-body" ng-show="auth.user">
+				<div id="new-game-placeholder" class="logo-placeholder">
+					<img src="../../img/logo2.svg" alt=""/>
+				</div>
+			<ul id="new-game">
+				<li><button class="button button-positive">Nouvelle partie</button></li>
+				<li><button class="button button-positive">Tableau de bord</button></li>
+				<li><button class="button button-positive">Paramètres</button></li>
+			</ul>
+		<button class="button" ng-click="logout(auth.user.uid)">Logout</button>
     </div>
-    <div ng-hide="auth.user">
-      <p>Welcome, please log in.</p>
-      <button class="button button-positive icon-left ion-social-facebook" ng-click="login('facebook')">Login with Facebook</button>
-      <button class="button button-positive icon-left ion-social-twitter" ng-click="login('twitter')">Login with Twitter</button>
-      <button class="button button-positive icon-left ion-social-google" ng-click="login('google')">Login with Google</button>
-    </div>
-    <div ng-show="auth.user">
-        <label class="item item-input">
-          <span class="input-label">nickname</span>
-          <input type="text" ng-model="profile.nickname">
-        </label>
-        <h3>Steps: {{steps}}</h3>
-    </div>
+    <div class="nice-body" ng-hide="auth.user">
+			<div class="logo-placeholder">
+				<img id="logo" src="../../img/logo.svg" alt="logo"/>
+			</div>
+			<ul id="social-network">
+				<li><button id="google-network" class="button button-positive icon-left ion-social-google" ng-click="login('google')">Connexion avec <span class="bold-network"> Google</span></button></li>
+				<li><button id="facebook-network" class="button button-positive icon-left ion-social-facebook" ng-click="login('facebook')">Connexion avec <span class="bold-network"> Facebook</span></button></li>
+				<li><button id="twitter-network" class="button button-positive icon-left ion-social-twitter" ng-click="login('twitter')">Connexion avec <span class="bold-network">Twitter</span></button></li>
 
-
-    <map center="map.center" zoom="map.zoom" polylines="map.polylines"></map>
-    <div ng-show="gameStart"> Game Start</div>
+					</ul>
+    </div>
+        <map center="map.center" zoom="map.zoom" polylines="map.polylines"  base="base" bases-enemies="basesEnemies"></map>
     <button ng-click="createMyBase()" >
         Create my base
-    </button>
-
-    <button ng-click="poseTourette()" >
-        Pose une toure
-    </button>
-
-    <button ng-click="attaque()" >
-        Attaque !!! 
-    </button>
-
-    <button ng-click="demarrerJeux()" >
-        Démarrer Jeux
-    </button>
+			</button>
+			<button ng-click="posteTourette()" >
+				Pose une tour
+			</button>
+		<button ng-click="attaque()" >
+			Attaque !
+		</button>
+		<button ng-click="demarrerJeux()">
+			Démarrer Jeux
+		</button> -->
+	<div id="auth-footer">
+		<img src="../../img/logo-footer.svg" alt=""/>
+	</div>
 </ion-content>

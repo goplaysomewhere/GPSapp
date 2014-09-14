@@ -9,9 +9,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
       zoom: '=zoom',
       center: '=center',
       polylines: '=polylines',
-      coords: '=coords',
-      base: '=base',
-      basesEnemies: '=basesEnemies'
+      coords: '=coords'
     },    
     link: function postLink($scope, iElement, iAttrs) { 
 
@@ -38,26 +36,29 @@ components.directive('map', ['$rootScope', '$timeout','$location'
             if (map == null || !newValue){
                 return;
             }
-            var polyline = new google.maps.Polyline({
-              path: [],
-              strokeColor: '#FF0000',
-              strokeWeight: 3
-            });
-            for (var i = 0; i < newValue.length; i++){
-                polyline.getPath().push(newValue[i]);
+            for (var indexPolyline = 0 ; indexPolyline<newValue.length; indexPolyline++){
+                var polyline = new google.maps.Polyline({
+                  path: [],
+                  strokeColor: '#FF0000',
+                  strokeWeight: 3
+                });
+                var polylineDatas = newValue[indexPolyline];
+
+                for (var i = 0; i < polylineDatas.length; i++){
+                    polyline.getPath().push(polylineDatas[i]);
+                }
+
+                polyline.setMap(map);
             }
 
-            polyline.setMap(map);
 
-            //map.setZoom(parseInt(newValue));
-        });
+        },true);
 
-        $scope.$watch('base', function (newValue) {
+       /* $scope.$watch('base', function (newValue) {
             if (map == null || !newValue){
                 return;
             }
-            //clearMarkers();
-            placeGoogleMapsMarker(parseFloat(newValue.latitude), parseFloat(newValue.longitude));                           
+            placeGoogleMapsMarker(parseFloat(newValue.latitude), parseFloat(newValue.longitude),'base');                           
             
         });
 
@@ -69,19 +70,19 @@ components.directive('map', ['$rootScope', '$timeout','$location'
                 placeGoogleMapsMarker(parseFloat(newValue[i].latitude), parseFloat(newValue[i].longitude));               
             }
             
+        }, true);*/
+
+        $rootScope.$on('requestNewMarker', function(evt, objMarker){            
+            markers[objMarker.id] = placeGoogleMapsMarker(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude), objMarker.type);
         });
 
-        $rootScope.$on('requestNewMarker', function(evt, attaquant){            
-            markers[attaquant.id] = placeGoogleMapsMarker(parseFloat(attaquant.coord.latitude), parseFloat(attaquant.coord.longitude));
+        $rootScope.$on('moveMarker', function(evt, objMarker){            
+            markers[objMarker.id].setPosition(new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)));
         });
 
-        $rootScope.$on('moveMarker', function(evt, attaquant){            
-            markers[attaquant.id].setPosition(new google.maps.LatLng(parseFloat(attaquant.coord.latitude), parseFloat(attaquant.coord.longitude)));
-        });
-
-         $rootScope.$on('removeMarker', function(evt, attaquant){             
-            markers[attaquant.id].setMap(null);
-            markers[attaquant.id] = null;
+         $rootScope.$on('removeMarker', function(evt, objMarker){             
+            markers[objMarker.id].setMap(null);
+            markers[objMarker.id] = null;
         });
         
 
@@ -107,7 +108,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
         * Google Maps ! 
         */
 
-        function locateAddressGoogle(address){
+        /*function locateAddressGoogle(address){
             geocoder.geocode({
                 address : model.getRequest().cityName
             }, function(results, status){
@@ -123,7 +124,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
                     console.log('Geocoder ko : '+status);        
                 }
             });
-        }
+        }*/
 
         function initGoogleMap(){
 
@@ -145,16 +146,20 @@ components.directive('map', ['$rootScope', '$timeout','$location'
           
         }
 
-        function placeGoogleMapsMarker(lat, lng, add){
+        function placeGoogleMapsMarker(lat, lng, type){
+            var icon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            if (type === 'attaquant'){
+                icon = "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+            }else if (type === 'tourette'){
+                icon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+            }else if (type === 'base'){
+                icon = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+            }
             var marker = new google.maps.Marker({
                 map : map,
-                position : new google.maps.LatLng(lat,lng)/*, 
-                icon : '../assets/images/marker_theater_red_black.png'*/
+                position : new google.maps.LatLng(lat,lng), 
+                icon : icon
             });
-            if(add){
-
-                markers.push(marker);
-            }
             return marker;
         }
 

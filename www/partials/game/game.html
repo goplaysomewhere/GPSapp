@@ -15,8 +15,23 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
-    <map center="map.center" zoom="map.zoom" polylines="map.polylines"  base="base" bases-enemies="basesEnemies"></map>
+
+
+    <map center="map.center" zoom="map.zoom" polylines="map.polylines"></map>
+    <div ng-show="gameStart"> Game Start</div>
     <button ng-click="createMyBase()" >
         Create my base
+    </button>
+
+    <button ng-click="poseTourette()" >
+        Pose une toure
+    </button>
+
+    <button ng-click="attaque()" >
+        Attaque !!! 
+    </button>
+
+    <button ng-click="demarrerJeux()" >
+        Démarrer Jeux
     </button>
 </ion-content>

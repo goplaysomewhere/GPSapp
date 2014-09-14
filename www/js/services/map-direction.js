@@ -2,11 +2,7 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 
 	var directionsService = new google.maps.DirectionsService();
 
-	var responseDirection  = null;	 
-	var distanceTot = 0;
-	var coords = [];
-
-
+	
  	/*****************************
 	******************************
 	* Apis exposed
@@ -14,9 +10,11 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 	******************************
 	*/
 
-	function moveMarker(){
-		var overviewPath = responseDirection.routes[0].overview_path;
+	function computeCoordinates(response, distanceTot){
+		var overviewPath = response.routes[0].overview_path;
 		var speed = 1;
+		var coords = [];
+	
       	var indexLeg =0,
         indexStep = 0,
         indexDist = 0,
@@ -81,6 +79,8 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
           }
       	}while(indexLeg < overviewPath.length);
       	
+
+      	return coords;
       
 	}
 
@@ -97,7 +97,7 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 	      	var legs = response.routes[0].legs;	      	
 	      	
 	      	var ids = 0;
-			distanceTot = 0;
+			var distanceTot = 0;
 			var polylines = [];
 			for (i=0;i<legs.length;i++) {
 				distanceTot += legs[i].distance.value;
@@ -121,24 +121,15 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 				}
 			}
 
-			moveMarker(); 
-
-	    	callBack(polylines, coords);
+	    	callBack(polylines, computeCoordinates(response, distanceTot));
 	    }
 	  });
 	}
 
-	function calculateConflicts(){
-		return null;
-	}
-
-	function getCoords(){
-		return coords;
-	}
+	
 
 	 
 	return{
-		callDirections : callDirections,
-		getCoords : getCoords
+		callDirections : callDirections
 	};
 }]);

@@ -185,7 +185,8 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 		startAttact : startAttact,
 		setCoords : setCoords,
 		addTourette : addTourette,
-		getLevel : getLevel
+		getLevel : getLevel,
+		checkStateRoutes : checkStateRoutes
 
 	};
 }]);

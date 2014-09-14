@@ -1,5 +1,5 @@
-components.directive('map', ['$rootScope', '$timeout','$location'
-  ,function ($rootScope,$timeout,$location) {
+components.directive('map', ['$rootScope', '$timeout','$location','Engine'
+  ,function ($rootScope,$timeout,$location,Engine) {
    var directiveDefinitionObject = {
     templateUrl: 'partials/components/map.html',
     replace: true,
@@ -53,6 +53,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
                 polyline.setMap(map);
                 polylinesMaps.push(polyline);
             }
+            Engine.checkStateRoutes();
 
 
         },true);
@@ -155,7 +156,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
         function placeGoogleMapsMarker(lat, lng, type){
             var icon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
             if (type === 'pingouin'){
-                icon = "../img/ping-User.png";
+                icon = "../../img/ping-User.png";
             }else if (type === 'attaquant'){
                 icon = "../../img/clown-Enemy.png";
             }else if (type === 'tourette'){

@@ -4,12 +4,17 @@
 }
 
 body {
-	height: 1136px;
-	width: 640px;
+	height: 100%;/*1136px;*/
+	width: 100%; /*640px;*/
 }
 
 .nice-body {
-	height: 460px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: white;
+	width: 100%;
+	height: 100%;/*460px;*/
 }
 
 #logo {
@@ -111,7 +116,17 @@ body {
   transition: none !important;
 }
 
+
+.scroll{
+	height: 100%;
+}
+
+.parent-map{
+	height: 100%;
+	width: 100%;
+}
 /* line 30, ../scss/style.scss */
 .angular-google-map-container {
-  height: 400px;
+	width: 100%;
+  	height: calc(100% - 100px);
 }

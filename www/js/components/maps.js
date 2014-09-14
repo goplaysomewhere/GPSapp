@@ -41,7 +41,8 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
             for (var indexPolyline = 0 ; indexPolyline<newValue.length; indexPolyline++){
                 var polyline = new google.maps.Polyline({
                   path: [],
-                  strokeColor: '#FF0000',
+                  strokeColor: '#C0C0C0',
+                  strokeOpacity: 0.8,
                   strokeWeight: 3
                 });
                 var polylineDatas = newValue[indexPolyline];
@@ -60,7 +61,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
 
         $rootScope.$on('setPolylineActiv', function(evt, index){            
             if (index < polylinesMaps.length){
-                polylinesMaps[index].setOptions({strokeColor:'#00FF00'});
+                polylinesMaps[index].setOptions({strokeColor:'#0C090A'});
             }
         });
       
@@ -69,10 +70,10 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
             markers[objMarker.id] = placeGoogleMapsMarker(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude), objMarker.type);
             if (objMarker.type ===  'tourette'){
                 var populationOptions = {
-                  strokeColor: '#FF0000',
+                  strokeColor: '#469fcb',
                   strokeOpacity: 0.8,
                   strokeWeight: 2,
-                  fillColor: '#FF0000',
+                  fillColor: '#469fcb',
                   fillOpacity: 0.35,
                   map: map,
                   center: new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)),
@@ -154,7 +155,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         }
 
         function placeGoogleMapsMarker(lat, lng, type){
-            var icon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            var icon = "../../img/clown-Home.png";
             if (type === 'pingouin'){
                 icon = "../../img/ping-User.png";
             }else if (type === 'attaquant'){

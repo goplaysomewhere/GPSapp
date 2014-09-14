@@ -3,7 +3,8 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   $scope.auth = simpleLogin;
 
 
-
+  $scope.showLogin = !$scope.auth.user;
+  $scope.showDemarrage = $scope.auth.user && !$scope.gameStart;
   $scope.map = MapService.init();
   $scope.gameStart = false;
   $scope.steps = null;

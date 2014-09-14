@@ -18,6 +18,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         var mapDivElt = iElement.find('div')[0];
         var markers = [];
         var polylinesMaps = [];
+        var circles = [];
       
         var map = null;        
         var geocoder = null;
@@ -25,12 +26,40 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         initGoogleMap();
         
 
-        function clearMarkers(){
+        function clearMap(){
             for (var i=0;i < markers.length; i++){
                 var marker = markers[i];
-                marker.setMap(null);
+                if(marker){
+                    try{
+                        marker.setMap(null);
+                    }catch(e){
+                    }
+                }
             }
             markers = [];
+
+            for (var i=0;i < polylinesMaps.length; i++){
+                var polyline = polylinesMaps[i];
+                if(polyline){
+                    try{
+                        polyline.setMap(null);
+                    }catch(e){
+                    }
+                }
+            }
+            polylinesMaps = [];
+
+
+            for (var i=0;i < circles.length; i++){
+                var circle = circles[i];
+                if(circle){
+                    try{
+                        circle.setMap(null);
+                    }catch(e){
+                    }
+                }
+            }
+            circles = [];
         }
 
         $scope.$watch('polylines', function (newValue) {
@@ -59,10 +88,15 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
 
         },true);
 
+        $rootScope.$on('clearMap', clearMap);
+
+
         $rootScope.$on('setPolylineActiv', function(evt, index){            
-            if (index < polylinesMaps.length){
-                polylinesMaps[index].setOptions({strokeColor:'#0C090A',strokeOpacity: 0.7});
-            }
+            try{                
+                if (index < polylinesMaps.length){
+                    polylinesMaps[index].setOptions({strokeColor:'#0C090A',strokeOpacity: 0.7});
+                }
+            }catch(e){}
         });
       
 
@@ -80,17 +114,21 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                   radius: 50
                 };
                 // Add the circle for this city to the map.
-                cityCircle = new google.maps.Circle(populationOptions);
+                circles.push(new google.maps.Circle(populationOptions));
             }
         });
 
-        $rootScope.$on('moveMarker', function(evt, objMarker){            
-            markers[objMarker.id].setPosition(new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)));
+        $rootScope.$on('moveMarker', function(evt, objMarker){        
+            try{
+                markers[objMarker.id].setPosition(new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)));
+            }catch(e){} 
         });
 
-         $rootScope.$on('removeMarker', function(evt, objMarker){             
-            markers[objMarker.id].setMap(null);
-            markers[objMarker.id] = null;
+         $rootScope.$on('removeMarker', function(evt, objMarker){  
+             try{
+                markers[objMarker.id].setMap(null);
+                markers[objMarker.id] = null;
+             }catch(e){}
         });
         
 

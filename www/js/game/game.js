@@ -1,5 +1,5 @@
-app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest", "MapService" ,
-  function($scope, $rootScope, $interval, simpleLogin, Profile,Engine, MapsRequest, MapService) {
+app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest", "MapService" , "Stats",
+  function($scope, $rootScope, $interval, simpleLogin, Profile,Engine, MapsRequest, MapService, Stats) {
   $scope.auth = simpleLogin;
 
 
@@ -8,11 +8,16 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   $scope.gameStart = false;
   $scope.steps = null;
   $scope.tourettes = [];
+  $scope.score = Stats.getScore();
+  $scope.bank = Stats.getBank();
+  Stats.setScore(0);
+  Stats.setBank(100);
 
   $rootScope.$on('updateStep',function(){
     $scope.$apply(function(){
       $scope.steps = Math.round(MapService.getSteps());
     });
+    Stats.changeScore(1);
   });
 
   $scope.createMyBase = function() {

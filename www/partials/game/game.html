@@ -1,17 +1,29 @@
 <ion-content has-header="true">
-    <button ng-click="createMyBase()" >
-        Create my base
-      </button>
-      <button ng-click="poseTourette()" >
-        Pose une tour
-      </button>
-    <button ng-click="attaque()" >
-      Attaque !
-    </button>
-    <button ng-click="demarrerJeux()">
-      Démarrer Jeux
-    </button>
-    <map center="map.center" zoom="map.zoom" polylines="map.polylines"  base="base" bases-enemies="basesEnemies"></map>
+    <div id="wrapper">
+        <div id="over-map" ng-show="gameStart">
+            <ul class="menu-map">
+                <li>
+                    <div ng-click="createMyBase()" >
+                        <img src="../../img/option-Base.png" >
+                    </div>
+                </li>
+                <li>
+                    <div ng-click="poseTourette()" >
+                        <img src="../../img/option-Tour.png" >
+                    </div>
+                </li>
+                <li>
+                    <div ng-click="attaque()" >
+                        <img src="../../img/option-Achat.png" >
+                    </div>
+                </li>                
+            </ul>
+        </div>
+
+        <div id="google-map">
+            <map center="map.center" zoom="map.zoom" polylines="map.polylines"></map>
+        </div>
+    </div>
     <div class="nice-body" ng-show="auth.user && !gameStart">
         <div id="new-game-placeholder" class="logo-placeholder">
           <img src="../../img/logo2.svg" alt=""/>
@@ -20,8 +32,8 @@
         <li><button class="button button-positive" ng-click='demarrerJeux()'>Nouvelle partie</button></li>
         <li><button class="button button-positive">Tableau de bord</button></li>
         <li><button class="button button-positive">Paramètres</button></li>
+        <li><button class="button button-positive" ng-click="logout(auth.user.uid)">Logout</button></li>
       </ul>
-      <button class="button" ng-click="logout(auth.user.uid)">Logout</button>
 
     </div>
     <div class="nice-body" ng-hide="auth.user">

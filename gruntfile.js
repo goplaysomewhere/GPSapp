@@ -124,7 +124,12 @@ module.exports = function (grunt) {
           './www/js/*.js',
            './www/js/**/*.js'
         ]
-      }
+      },
+        css: {
+            files: [
+                './www/**/*.css'
+            ]
+        }
     }
 
   });

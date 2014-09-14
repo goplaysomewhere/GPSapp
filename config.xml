@@ -22,4 +22,6 @@
 <feature name="Geolocation">
     <param name="ios-package" value="CDVLocation" />
 </feature>
+<preference name="SplashScreen" value="splashScreen.png" />
+<preference name="SplashScreenDelay" value="3000" />
 </widget>

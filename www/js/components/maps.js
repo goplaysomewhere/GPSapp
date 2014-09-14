@@ -43,7 +43,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                   path: [],
                   strokeColor: '#C0C0C0',
                   strokeOpacity: 0.8,
-                  strokeWeight: 3
+                  strokeWeight: 4
                 });
                 var polylineDatas = newValue[indexPolyline];
 
@@ -61,7 +61,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
 
         $rootScope.$on('setPolylineActiv', function(evt, index){            
             if (index < polylinesMaps.length){
-                polylinesMaps[index].setOptions({strokeColor:'#0C090A'});
+                polylinesMaps[index].setOptions({strokeColor:'#0C090A',strokeOpacity: 0.7});
             }
         });
       
@@ -71,7 +71,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
             if (objMarker.type ===  'tourette'){
                 var populationOptions = {
                   strokeColor: '#469fcb',
-                  strokeOpacity: 0.8,
+                  strokeOpacity: 0,
                   strokeWeight: 2,
                   fillColor: '#469fcb',
                   fillOpacity: 0.35,

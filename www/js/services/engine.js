@@ -1,4 +1,4 @@
-app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$rootScope) {
+app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$rootScope, Stats) {
 
 	var attaquants = [];
 	var tourettes = [];

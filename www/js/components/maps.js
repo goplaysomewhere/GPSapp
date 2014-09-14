@@ -8,7 +8,11 @@ components.directive('map', ['$rootScope', '$timeout','$location'
     scope: {        
       zoom: '=zoom',
       center: '=center',
-      polylines: '=polylines'
+      polylines: '=polylines',
+      attaquants: '=attaquants',
+      coords: '=coords',
+      base: '=base',
+      basesEnemies: '=basesEnemies'
     },    
     link: function postLink($scope, iElement, iAttrs) { 
 
@@ -48,6 +52,51 @@ components.directive('map', ['$rootScope', '$timeout','$location'
             polyline.setMap(map);
 
             //map.setZoom(parseInt(newValue));
+        });
+
+        $scope.$watch('base', function (newValue) {
+            if (map == null || !newValue){
+                return;
+            }
+            //clearMarkers();
+            placeGoogleMapsMarker(parseFloat(newValue.latitude), parseFloat(newValue.longitude));                           
+            
+        });
+
+        $scope.$watch('basesEnemies', function (newValue) {
+            if (map == null || !newValue){
+                return;
+            }
+            for (var i =0; i < newValue.length; i++){      
+                placeGoogleMapsMarker(parseFloat(newValue[i].latitude), parseFloat(newValue[i].longitude));               
+            }
+            
+        });
+
+        $scope.$watch('attaquants', function (newValue) {
+            if (map == null || !newValue){
+                return;
+            }
+            clearMarkers();
+            var markerToAnimate = null;
+            for (var i =0; i < newValue.length; i++){      
+                markerToAnimate = placeGoogleMapsMarker(parseFloat(newValue[i].latitude), parseFloat(newValue[i].longitude));               
+            }
+
+            if (newValue.length > 0){
+                var index = 0;
+
+                var intervalCancel = window.setInterval(function(){
+                    if (index >= $scope.coords.length){
+                      window.clearInterval(interval);
+                    }else{
+                      markerToAnimate.position = new google.maps.LatLng(
+                        parseFloat($scope.coords[index].latitude),
+                        parseFloat($scope.coords[index].longitude));
+                    }
+                    index++;
+                },100);
+            }
         });
 
         $scope.$watch('zoom', function (newValue) {
@@ -117,6 +166,7 @@ components.directive('map', ['$rootScope', '$timeout','$location'
                 icon : '../assets/images/marker_theater_red_black.png'*/
             });
             markers.push(marker);
+            return marker;
         }
 
     }

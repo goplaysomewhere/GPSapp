@@ -19,7 +19,6 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 		var speed = 1;
       	var indexLeg =0,
         indexStep = 0,
-        indexPath = 0,
         indexDist = 0,
         dstToGo = -1;
  
@@ -67,6 +66,9 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 	                latitude : posPrevious.lat() - deltaLat * indexDist,
 	                longitude : posPrevious.lng() - deltaLong * indexDist});
 
+	            /*coords.push(new google.maps.LatLng(parseFloat(posPrevious.lat() - deltaLat * indexDist), 
+	            	parseFloat(posPrevious.lng() - deltaLong * indexDist)));*/
+
 	            if (dataBornee &&  dstToGo < 0){
 	              dstToGo = -1;
 	              indexDist = 0;
@@ -90,8 +92,7 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 		  };
 		directionsService.route(request, function(response, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
-			responseDirection = response;
-			//moveMarker(); 
+			responseDirection = response;			
 	    	console.info(response);
 	      	var legs = response.routes[0].legs;	      	
 	      	
@@ -120,7 +121,9 @@ app.factory("MapsRequest", ["$firebase", function($firebase) {
 				}
 			}
 
-	    	callBack(polylines);
+			moveMarker(); 
+
+	    	callBack(polylines, coords);
 	    }
 	  });
 	}

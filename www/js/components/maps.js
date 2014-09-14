@@ -18,6 +18,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         var mapDivElt = iElement.find('div')[0];
         var markers = [];
         var polylinesMaps = [];
+        var circles = [];
       
         var map = null;        
         var geocoder = null;
@@ -25,12 +26,40 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         initGoogleMap();
         
 
-        function clearMarkers(){
+        function clearMap(){
             for (var i=0;i < markers.length; i++){
                 var marker = markers[i];
-                marker.setMap(null);
+                if(marker){
+                    try{
+                        marker.setMap(null);
+                    }catch(e){
+                    }
+                }
             }
             markers = [];
+
+            for (var i=0;i < polylinesMaps.length; i++){
+                var polyline = polylinesMaps[i];
+                if(polyline){
+                    try{
+                        polyline.setMap(null);
+                    }catch(e){
+                    }
+                }
+            }
+            polylinesMaps = [];
+
+
+            for (var i=0;i < circles.length; i++){
+                var circle = circles[i];
+                if(circle){
+                    try{
+                        circle.setMap(null);
+                    }catch(e){
+                    }
+                }
+            }
+            circles = [];
         }
 
         $scope.$watch('polylines', function (newValue) {
@@ -59,10 +88,15 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
 
         },true);
 
+        $rootScope.$on('clearMap', clearMap);
+
+
         $rootScope.$on('setPolylineActiv', function(evt, index){            
-            if (index < polylinesMaps.length){
-                polylinesMaps[index].setOptions({strokeColor:'#0C090A',strokeOpacity: 0.7});
-            }
+            try{                
+                if (index < polylinesMaps.length){
+                    polylinesMaps[index].setOptions({strokeColor:'#0C090A',strokeOpacity: 0.7});
+                }
+            }catch(e){}
         });
       
 
@@ -80,17 +114,21 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                   radius: 50
                 };
                 // Add the circle for this city to the map.
-                cityCircle = new google.maps.Circle(populationOptions);
+                circles.push(new google.maps.Circle(populationOptions));
             }
         });
 
-        $rootScope.$on('moveMarker', function(evt, objMarker){            
-            markers[objMarker.id].setPosition(new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)));
+        $rootScope.$on('moveMarker', function(evt, objMarker){        
+            try{
+                markers[objMarker.id].setPosition(new google.maps.LatLng(parseFloat(objMarker.coord.latitude), parseFloat(objMarker.coord.longitude)));
+            }catch(e){} 
         });
 
-         $rootScope.$on('removeMarker', function(evt, objMarker){             
-            markers[objMarker.id].setMap(null);
-            markers[objMarker.id] = null;
+         $rootScope.$on('removeMarker', function(evt, objMarker){  
+             try{
+                markers[objMarker.id].setMap(null);
+                markers[objMarker.id] = null;
+             }catch(e){}
         });
         
 
@@ -139,12 +177,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
            var mapOptions = {
                 center: new google.maps.LatLng($scope.center.latitude, $scope.center.longitude),
                 zoom: $scope.zoom,
-                mapTypeControl : false,
-                panControl : false,
-                streetViewControl : false,
-                scaleControl : false,
-                zoomControlOptions : { position : google.maps.ControlPosition.LEFT_BOTTOM},
-                overviewMapControl : false,
+                disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 styles:[{"elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#f5f5f2"},{"visibility":"on"}]},{"featureType":"administrative","stylers":[{"visibility":"off"}]},{"featureType":"transit","stylers":[{"visibility":"off"}]},{"featureType":"poi.attraction","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"visibility":"on"}]},{"featureType":"poi.business","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","stylers":[{"visibility":"off"}]},{"featureType":"poi.place_of_worship","stylers":[{"visibility":"off"}]},{"featureType":"poi.school","stylers":[{"visibility":"off"}]},{"featureType":"poi.sports_complex","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#ffffff"},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"visibility":"simplified"},{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"color":"#ffffff"},{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","stylers":[{"color":"#ffffff"}]},{"featureType":"poi.park","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#71c8d4"}]},{"featureType":"landscape","stylers":[{"color":"#e5e8e7"}]},{"featureType":"poi.park","stylers":[{"color":"#8ba129"}]},{"featureType":"road","stylers":[{"color":"#ffffff"}]},{"featureType":"poi.sports_complex","elementType":"geometry","stylers":[{"color":"#c7c7c7"},{"visibility":"off"}]},{"featureType":"water","stylers":[{"color":"#a0d3d3"}]},{"featureType":"poi.park","stylers":[{"color":"#91b65d"}]},{"featureType":"poi.park","stylers":[{"gamma":1.51}]},{"featureType":"road.local","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"poi.government","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"landscape","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","stylers":[{"visibility":"simplified"}]},{"featureType":"road"},{"featureType":"road"},{},{"featureType":"road.highway"}]
                 };

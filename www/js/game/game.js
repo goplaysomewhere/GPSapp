@@ -7,13 +7,32 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   $scope.showDemarrage = $scope.auth.user && !$scope.gameStart;
   $scope.map = MapService.init();
   $scope.gameStart = false;
+  $scope.gameOver = false;
   $scope.steps = null;
   $scope.tourettes = [];
   $scope.score = Stats.getScore();
   $scope.bank = Stats.getBank();
+  $scope.life= Engine.getLife();
   $scope.inGame = false;
+  $scope.inAttaque = true;
   Stats.setScore(0);
   Stats.setBank(100);
+
+
+  $rootScope.$on('updateLife',function(evt, data){
+    $scope.$apply(function(){
+      $scope.life = data;
+    });
+  });
+
+  $rootScope.$on('gameOver',function(){
+    $scope.$apply(function(){
+      $scope.inGame = false;
+      $scope.inAttaque = true;
+      $scope.gameStart = false;
+      $scope.gameOver = true;
+    });
+  });
 
   $rootScope.$on('updateStep',function(){
     $scope.$apply(function(){
@@ -22,7 +41,18 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
     Stats.changeScore(1);
   });
 
+  $rootScope.$on('endAttaque',function(){
+    $scope.$apply(function(){
+      $scope.inAttaque = false;
+    });
+  });
+
+  $scope.recommencer = function(){
+    $scope.gameOver = false;
+  }
+
   $scope.createMyBase = function() {
+      $scope.inAttaque = false;
       $scope.inGame = true;
       var coordinates = MapService.getCurrentPosition();
       $scope.base = coordinates;
@@ -85,6 +115,9 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   }
 
   $scope.attaque = function(){
+    if ($scope.inAttaque)
+      return;
+    $scope.inAttaque = true;
     Engine.startAttact();
   }
 
@@ -98,6 +131,10 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   }
 
   $scope.demarrerJeux = function(){
+    if ($scope.inGame)
+      return;
+    Engine.reset();
+    $rootScope.$emit('clearMap');
     $scope.gameStart = true;
   }
 

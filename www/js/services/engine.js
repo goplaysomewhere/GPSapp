@@ -18,12 +18,16 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 	*/
 
 	function reset(){
+		attaquants = [];
+		tourettes = [];
 		coords = [];
+		lock = false;
 		totalLife = 100;
 		NB_ATTAQUANTS = 10;
 		TIME_ATTAQUE = 1000;
 		speedAttaque = 50;
 		level = 1;
+		$rootScope.$emit('updateLife', totalLife);
 	}
 
 	function setCoords(coordsModel){
@@ -55,6 +59,9 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 				setTimeout(function() {
 			 		throwAttact(nbAttaques-1);		 	
 			 	}, TIME_ATTAQUE);	
+			}else{
+				$rootScope.$emit('endAttaque');
+
 			}
 			lock = false;
 		}
@@ -132,8 +139,13 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 						indexsToRemove.push(i);
 					}
 				}else{					
+					console.log('Attaque : '+totalLife);
 					indexsToRemove.push(i);
 					totalLife -= getAttaqueLevel(attaquant);
+					$rootScope.$emit('updateLife', totalLife);
+					if (totalLife <=0){
+						$rootScope.$emit('gameOver');
+					}
 				}
 			}
 			
@@ -180,6 +192,9 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 	}
 
 
+	function getLife(){
+		return totalLife;
+	}
 
 	
 	return{
@@ -188,7 +203,8 @@ app.factory("Engine", ["$firebase","$rootScope", "Stats", function($firebase,$ro
 		setCoords : setCoords,
 		addTourette : addTourette,
 		getLevel : getLevel,
-		checkStateRoutes : checkStateRoutes
+		checkStateRoutes : checkStateRoutes,
+		getLife : getLife
 
 	};
 }]);

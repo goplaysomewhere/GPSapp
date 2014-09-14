@@ -3,6 +3,12 @@
         <div id="over-map" ng-show="gameStart">
             <ul class="menu-map">
                 <li>
+                    <div class="vie-parent">
+                      <p class="vie">{{life}}</p>
+                      <img src="../../img/option-Vie_2.png" >                      
+                    </div>
+                </li>
+                <li>
                     <div ng-click="createMyBase()" >
                         <img ng-if="!inGame" src="../../img/option-Base.png" >
                         <img ng-if="inGame" src="../../img/option-Base-disabled.png" >
@@ -15,8 +21,8 @@
                 </li>
                 <li>
                     <div ng-click="attaque()" >
-                        <img ng-if="!inGame" src="../../img/play.png" >
-                        <img ng-if="inGame" src="../../img/play-disabled.png" >
+                        <img ng-if="!inAttaque" src="../../img/play.png" >
+                        <img ng-if="inAttaque" src="../../img/play-disabled.png" >
                     </div>
                 </li>                
             </ul>
@@ -36,7 +42,16 @@
             <map center="map.center" zoom="map.zoom" polylines="map.polylines"></map>
         </div>
     </div>
-    <div class="nice-body" ng-show="auth.user && !gameStart">
+    <div class="nice-body" ng-show="gameOver">
+        <div id="new-game-placeholder" class="logo-placeholder">
+          <img src="../../img/game-over.png" alt=""/>
+        </div>
+      <ul id="reset-game">
+        <li><button class="button button-positive" ng-click="recommencer()">Recommencer</button></li>
+      </ul>
+
+    </div>
+    <div class="nice-body" ng-show="auth.user && !gameStart && !gameOver">
         <div id="new-game-placeholder" class="logo-placeholder">
           <img src="../../img/logo2.svg" alt=""/>
         </div>

@@ -15,6 +15,9 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
+    <button ng-click="createMyBase()" >
+        Create my base
+    </button>
     <map center="map.center" zoom="map.zoom" polylines="map.polylines" attaquants="makersAttaquants" coords="coords" base="base" bases-enemies="basesEnemies"></map>
     <!--<google-map center="map.center" zoom="map.zoom">
      <polylines models="polylines" path="'path'" stroke="'stroke'" visible="'visible'"

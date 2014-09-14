@@ -1,35 +1,26 @@
-app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest" ,
-  function($scope, $interval, simpleLogin, Profile,Engine, MapsRequest) {
+app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest", "MapService" ,
+  function($scope, $interval, simpleLogin, Profile,Engine, MapsRequest, MapService) {
   $scope.auth = simpleLogin;
 
-  $scope.map = {
-      center: {
-          latitude: 47.212210, 
-          longitude: -1.551944
-      },
-      zoom: 17, 
-      polylines : []
-  };
+
+
+  $scope.map = MapService.init();
+
+
 
   $scope.coords = [];
   $scope.makersAttaquants=[];
   $scope.base = null;
   $scope.baseEnemies = [];
   $scope.polylines = [];
-  $scope.marker = {
-    id:0,
-    coords:{
-      latitude: 47.212210, 
-      longitude: -1.551944
-    }
-  };
 
-  setTimeout(function() {
-    $scope.$apply(function(){
-      $scope.base = {latitude: 47.212210, 
-          longitude: -1.551944};
-    });
-  }, 1000);
+
+  $scope.createMyBase = function() {
+      coordinates = MapService.getCurrentPosition();
+      northCoordinates = MapService.getDepartNorthPosition();
+      $scope.base = coordinates;
+      MapsRequest.callDirections(coordinates, northCoordinates, $scope.callBackDirection);
+  };
 
   $scope.callBackDirection = function(polylines, coords){
     $scope.$apply(function(){
@@ -37,24 +28,10 @@ app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Eng
       $scope.map.polylines = polylines;
       $scope.coords = coords;
       $scope.makersAttaquants = [coords[0]];
-        
-      /*var coords = MapsRequest.getCoords();
-      var index = 0;
 
-      var intervalCancel = $interval(function(){
-        if (index >= coords.length){
-          $interval.cancel(intervalCancel);
-        }else{
-          $scope.marker.coords = coords[index];
-        }
-        index++;
-      },100);*/
       
     });
   }
-
-  MapsRequest.callDirections("impasse Juton, nantes","CHU Nantes", $scope.callBackDirection);
-
 
 
   $scope.login = function(provider) {

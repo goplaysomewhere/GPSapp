@@ -1,4 +1,4 @@
-app.factory('Stats', function(){
+app.factory('Stats', ['$rootScope', function($rootScope){
 	var bank = 100;
 	var score = 0;
 
@@ -15,16 +15,18 @@ app.factory('Stats', function(){
     },
     setScore: function(newScore) {
       score = newScore;
+      $rootScope.$emit('changeScore', score);
       return;
     },
-	changeBank: function(change) {
+  changeBank: function(change) {
       bank += change;
       return bank;
     },
     changeScore: function(change) {
       score += change;
+      $rootScope.$emit('changeScore', score);
       return change;
     },
   }
 
-});
+}]);

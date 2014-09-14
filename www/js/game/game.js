@@ -20,9 +20,13 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
 
 
   $rootScope.$on('updateLife',function(evt, data){
-    $scope.$apply(function(){
-      $scope.life = data;
-    });
+    if (data.apply){      
+      $scope.$apply(function(){
+        $scope.life = data.life;
+      });
+    }else{
+      $scope.life = data.life;
+    }
   });
 
   $rootScope.$on('gameOver',function(){
@@ -31,6 +35,13 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
       $scope.inAttaque = true;
       $scope.gameStart = false;
       $scope.gameOver = true;
+    });
+  });
+
+
+  $rootScope.$on('changeScore',function(evt, data){
+    $scope.$apply(function(){
+      $scope.score = data;      
     });
   });
 
@@ -52,6 +63,10 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   }
 
   $scope.createMyBase = function() {
+    if ($scope.inGame){      
+      return;
+    }
+
       $scope.inAttaque = false;
       $scope.inGame = true;
       var coordinates = MapService.getCurrentPosition();
@@ -105,6 +120,13 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
         });
   };
 
+  $scope.restart = function(){
+      $scope.inGame = false;
+      $scope.inAttaque = true;
+      $scope.gameStart = false;
+      $scope.gameOver = false;
+  }
+
   $scope.poseTourette = function(){
     var position = MapService.getCurrentPosition();
     var option ={
@@ -136,6 +158,8 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
     Engine.reset();
     $rootScope.$emit('clearMap');
     $scope.gameStart = true;
+    $scope.life = 100;
+    $scope.score = 0;
   }
 
 

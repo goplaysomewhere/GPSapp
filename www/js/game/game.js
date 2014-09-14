@@ -11,8 +11,6 @@ app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Eng
       polylines : []
   };
 
-  $scope.coords = [];
-  $scope.makersAttaquants=[];
   $scope.base = null;
   $scope.baseEnemies = [];
   $scope.polylines = [];
@@ -36,7 +34,9 @@ app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Eng
       
       $scope.map.polylines = polylines;
       $scope.coords = coords;
-      $scope.makersAttaquants = [coords[0]];
+
+      Engine.setCoords(coords);
+      Engine.startAttact($scope.coords);
         
       /*var coords = MapsRequest.getCoords();
       var index = 0;

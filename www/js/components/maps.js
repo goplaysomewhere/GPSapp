@@ -9,7 +9,6 @@ components.directive('map', ['$rootScope', '$timeout','$location'
       zoom: '=zoom',
       center: '=center',
       polylines: '=polylines',
-      attaquants: '=attaquants',
       coords: '=coords',
       base: '=base',
       basesEnemies: '=basesEnemies'
@@ -44,7 +43,6 @@ components.directive('map', ['$rootScope', '$timeout','$location'
               strokeColor: '#FF0000',
               strokeWeight: 3
             });
-            console.log(newValue);
             for (var i = 0; i < newValue.length; i++){
                 polyline.getPath().push(newValue[i]);
             }
@@ -73,31 +71,14 @@ components.directive('map', ['$rootScope', '$timeout','$location'
             
         });
 
-        $scope.$watch('attaquants', function (newValue) {
-            if (map == null || !newValue){
-                return;
-            }
-            clearMarkers();
-            var markerToAnimate = null;
-            for (var i =0; i < newValue.length; i++){      
-                markerToAnimate = placeGoogleMapsMarker(parseFloat(newValue[i].latitude), parseFloat(newValue[i].longitude));               
-            }
-
-            if (newValue.length > 0){
-                var index = 0;
-
-                var intervalCancel = window.setInterval(function(){
-                    if (index >= $scope.coords.length){
-                      window.clearInterval(interval);
-                    }else{
-                      markerToAnimate.position = new google.maps.LatLng(
-                        parseFloat($scope.coords[index].latitude),
-                        parseFloat($scope.coords[index].longitude));
-                    }
-                    index++;
-                },100);
-            }
+        $rootScope.$on('requestNewMarker', function(evt, attaquant){            
+            markers[attaquant.id] = placeGoogleMapsMarker(parseFloat(attaquant.coord.latitude), parseFloat(attaquant.coord.longitude));
         });
+
+        $rootScope.$on('moveMarker', function(evt, attaquant){            
+            markers[attaquant.id].setPosition(new google.maps.LatLng(parseFloat(attaquant.coord.latitude), parseFloat(attaquant.coord.longitude)));
+        });
+        
 
         $scope.$watch('zoom', function (newValue) {
             if (map == null){
@@ -159,13 +140,16 @@ components.directive('map', ['$rootScope', '$timeout','$location'
           
         }
 
-        function placeGoogleMapsMarker(lat, lng){
+        function placeGoogleMapsMarker(lat, lng, add){
             var marker = new google.maps.Marker({
                 map : map,
                 position : new google.maps.LatLng(lat,lng)/*, 
                 icon : '../assets/images/marker_theater_red_black.png'*/
             });
-            markers.push(marker);
+            if(add){
+
+                markers.push(marker);
+            }
             return marker;
         }
 

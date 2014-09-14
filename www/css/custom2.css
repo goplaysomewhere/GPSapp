@@ -128,5 +128,5 @@ body {
 /* line 30, ../scss/style.scss */
 .angular-google-map-container {
 	width: 100%;
-  	height: calc(100% - 100px);
+  	height: 100%;
 }

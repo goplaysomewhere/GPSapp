@@ -17,7 +17,8 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
                 latitude: latitude,
                 longitude: longitude
             },
-            zoom: 17
+            zoom: 17, 
+            polylines : []
         };
         var onSuccess = function(position) {
             latitude = position.coords.latitude;
@@ -27,7 +28,7 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
                 longitude: longitude
             };
              if (lastPos)
-                steps += getDistance(lastPos,position)*1.31233595801;
+                steps += getDistance(lastPos,position)*(1.31233595801 / 2);
             lastPos = position;
             if (steps){
                 $rootScope.$emit('updateStep');
@@ -48,7 +49,15 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
     }
 
     function getDepartNorthPosition() {
-        return new google.maps.LatLng(latitude+0.003, longitude);
+        return new google.maps.LatLng(latitude+0.004, longitude);
+    }
+
+    function getDepartEastPosition() {
+        return new google.maps.LatLng(latitude  , longitude+0.005);
+    }
+
+    function getDepartSouthPosition() {
+        return new google.maps.LatLng(latitude-0.004, longitude);
     }
     function rad(x) {
       return x * Math.PI / 180;
@@ -74,7 +83,8 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
         init : init,
         getCurrentPosition : getCurrentPosition,
         getDepartNorthPosition: getDepartNorthPosition,
+        getDepartEastPosition : getDepartEastPosition,
+        getDepartSouthPosition : getDepartSouthPosition,
         getSteps: getSteps
-    
     };
 }]);

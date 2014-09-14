@@ -11,6 +11,7 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   $scope.tourettes = [];
   $scope.score = Stats.getScore();
   $scope.bank = Stats.getBank();
+  $scope.inGame = false;
   Stats.setScore(0);
   Stats.setBank(100);
 
@@ -22,6 +23,7 @@ app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", 
   });
 
   $scope.createMyBase = function() {
+      $scope.inGame = true;
       var coordinates = MapService.getCurrentPosition();
       $scope.base = coordinates;
       var northCoordinates = MapService.getDepartNorthPosition();

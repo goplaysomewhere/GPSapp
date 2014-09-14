@@ -1,43 +1,35 @@
-app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest" ,
-  function($scope, $rootScope, $interval, simpleLogin, Profile,Engine, MapsRequest) {
+app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest", "MapService" ,
+  function($scope, $rootScope, $interval, simpleLogin, Profile,Engine, MapsRequest, MapService) {
   $scope.auth = simpleLogin;
 
-  $scope.map = {
-      center: {
-          latitude: 47.212210, 
-          longitude: -1.551944
-      },
-      zoom: 17, 
-      polylines : []
-  };
+
+
+  $scope.map = MapService.init();
+
+
 
   $scope.base = null;
   $scope.baseEnemies = [];
   $scope.polylines = [];
-  $scope.marker = {
-    id:0,
-    coords:{
-      latitude: 47.212210, 
-      longitude: -1.551944
-    }
-  };
 
   $scope.tourettes = [];
 
+  $scope.createMyBase = function() {
+      coordinates = MapService.getCurrentPosition();
+      northCoordinates = MapService.getDepartNorthPosition();
+      $scope.base = coordinates;
+      MapsRequest.callDirections(coordinates, northCoordinates, $scope.callBackDirection);
+  };
 
   $scope.callBackDirection = function(polylines, coords){
     $scope.$apply(function(){
       
       $scope.map.polylines = polylines;
-
       Engine.setCoords(coords);
       Engine.startAttact();
       
     });
   }
-
-  MapsRequest.callDirections("impasse Juton, nantes","CHU Nantes", $scope.callBackDirection);
-
 
 
   $scope.login = function(provider) {

@@ -15,11 +15,8 @@
           <input type="text" ng-model="profile.nickname">
         </label>
     </div>
-    <map center="map.center" zoom="map.zoom" polylines="map.polylines" base="base" bases-enemies="basesEnemies"></map>
-    <!--<google-map center="map.center" zoom="map.zoom">
-     <polylines models="polylines" path="'path'" stroke="'stroke'" visible="'visible'"
-                  geodesic="'geodesic'" fit="false" editable="'p.editable'" draggable="'draggable'" icons="'icons'"></polylines>
-      <marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" >
-        </marker>
-    </google-map>-->
+    <map center="map.center" zoom="map.zoom" polylines="map.polylines"  base="base" bases-enemies="basesEnemies"></map>
+    <button ng-click="createMyBase()" >
+        Create my base
+    </button>
 </ion-content>

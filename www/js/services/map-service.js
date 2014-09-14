@@ -33,23 +33,18 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
         return map;
     }
 
+
     function getCurrentPosition() {
-        return {latitude: latitude, longitude: longitude}
+        return new google.maps.LatLng(latitude, longitude);
     }
 
-    function createMarker() {
-        marker = {
-            id:0,
-            coords: {
-                latitude: latitude,
-                longitude: longitude
-            }
-        }
-        return marker;
+    function getDepartNorthPosition() {
+        return new google.maps.LatLng(latitude+0.003, longitude);
     }
 
     return{
         init : init,
-        createMarker : createMarker
+        getCurrentPosition : getCurrentPosition,
+        getDepartNorthPosition: getDepartNorthPosition
     };
 }]);

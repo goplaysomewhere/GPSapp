@@ -78,6 +78,11 @@ components.directive('map', ['$rootScope', '$timeout','$location'
         $rootScope.$on('moveMarker', function(evt, attaquant){            
             markers[attaquant.id].setPosition(new google.maps.LatLng(parseFloat(attaquant.coord.latitude), parseFloat(attaquant.coord.longitude)));
         });
+
+         $rootScope.$on('removeMarker', function(evt, attaquant){             
+            markers[attaquant.id].setMap(null);
+            markers[attaquant.id] = null;
+        });
         
 
         $scope.$watch('zoom', function (newValue) {

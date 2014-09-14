@@ -3,6 +3,8 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 	var attaquants = [];
 	var coords = null;
 	var lock = false;
+	var NB_ATTAQUANTS = 10;
+	var TIME_ATTAQUE = 1000;
 
  	/*****************************
 	******************************
@@ -16,7 +18,7 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 	}
 
 	function startAttact(){
-		throwAttact(10);
+		throwAttact(NB_ATTAQUANTS);
 		processMove();
 	}
 
@@ -29,12 +31,12 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 		}else{
 			lock = true;
 			if (nbAttaques > 0){
-				var attaquant = {id : new Date().getTime(), index:0, coord : coords[0]};
+				var attaquant = {id : new Date().getTime(), index:0, coord : coords[0], type: "attaquant"};
 				attaquants.push(attaquant);
 				$rootScope.$emit('requestNewMarker', attaquant);
 				setTimeout(function() {
 			 		throwAttact(nbAttaques-1);		 	
-			 	}, 2000);	
+			 	}, TIME_ATTAQUE);	
 			}
 			lock = false;
 		}
@@ -53,6 +55,7 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 					attaquant.coord = coords[attaquant.index];
 					$rootScope.$emit('moveMarker', attaquant);
 				}else{
+					$rootScope.$emit('removeMarker', attaquant);
 					pop = true;
 				}
 			}
@@ -66,6 +69,8 @@ app.factory("Engine", ["$firebase","$rootScope", function($firebase,$rootScope) 
 			lock = false;
 		}
 	}
+
+	//function addTourette()
 
 
 	

@@ -1,5 +1,5 @@
-app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest" ,
-  function($scope, $interval, simpleLogin, Profile,Engine, MapsRequest) {
+app.controller("gameCtrl", ["$scope", "$rootScope", "$interval", "simpleLogin", "Profile","Engine", "MapsRequest" ,
+  function($scope, $rootScope, $interval, simpleLogin, Profile,Engine, MapsRequest) {
   $scope.auth = simpleLogin;
 
   $scope.map = {
@@ -22,33 +22,16 @@ app.controller("gameCtrl", ["$scope", "$interval", "simpleLogin", "Profile","Eng
     }
   };
 
-  setTimeout(function() {
-    $scope.$apply(function(){
-      $scope.base = {latitude: 47.212210, 
-          longitude: -1.551944};
-    });
-  }, 1000);
+  $scope.tourettes = [];
+
 
   $scope.callBackDirection = function(polylines, coords){
     $scope.$apply(function(){
       
       $scope.map.polylines = polylines;
-      $scope.coords = coords;
 
       Engine.setCoords(coords);
-      Engine.startAttact($scope.coords);
-        
-      /*var coords = MapsRequest.getCoords();
-      var index = 0;
-
-      var intervalCancel = $interval(function(){
-        if (index >= coords.length){
-          $interval.cancel(intervalCancel);
-        }else{
-          $scope.marker.coords = coords[index];
-        }
-        index++;
-      },100);*/
+      Engine.startAttact();
       
     });
   }

@@ -16,7 +16,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
         var useGoogleMaps = false;//typeof google === 'object' && typeof google.maps === 'object';      
         //useGoogleMaps = false;
         var mapDivElt = iElement.find('div')[0];
-        var markers = [];
+        var markers = {};
         var polylinesMaps = [];
         var circles = [];
       
@@ -28,8 +28,15 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
 
         function clearMap(){
             console.log('Clear Map ');
-            for (var i=0;i < markers.length; i++){
-                var marker = markers[i];
+            clearMarkers();
+            clearPolylines();
+            clearCircles();
+        }
+
+        function clearMarkers(){
+            var keysMarkers = Object.keys(markers);
+            for (var i=0;i < keysMarkers.length; i++){
+                var marker = markers[keysMarkers[i]];
                 if(marker){
                     try{
                         marker.setMap(null);
@@ -38,8 +45,10 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                     }
                 }
             }
-            markers = [];
+            markers = {};
+        }
 
+        function clearPolylines(){
             for (var i=0;i < polylinesMaps.length; i++){
                 var polyline = polylinesMaps[i];
                 if(polyline){
@@ -51,9 +60,10 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
                 }
             }
             polylinesMaps = [];
+        }
 
-
-            for (var i=0;i < circles.length; i++){
+        function clearCircles(){
+             for (var i=0;i < circles.length; i++){
                 var circle = circles[i];
                 if(circle){
                     try{
@@ -70,7 +80,7 @@ components.directive('map', ['$rootScope', '$timeout','$location','Engine'
             if (map == null || !newValue){
                 return;
             }
-            polylinesMaps = [];
+            clearPolylines();
             for (var indexPolyline = 0 ; indexPolyline<newValue.length; indexPolyline++){
                 var polyline = new google.maps.Polyline({
                   path: [],

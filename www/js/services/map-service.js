@@ -11,6 +11,10 @@ app.factory("MapService", ["$firebase","$rootScope", function($firebase,$rootSco
         longitude = -1.551944;
     }
 
+    $rootScope.$on('clearMap', function(){
+        pingouinMarker = null;
+    });
+
     function init(){
         construct();
         var map = {
